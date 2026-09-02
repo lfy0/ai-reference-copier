@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-面向 IntelliJ Platform IDE 的轻量插件，用于IDE与AI工具协作时复制AI可理解的路径，可提供给AI做代码定位。
+面向 IntelliJ Platform IDE 的轻量插件，IDE与AI工具协作时复制AI可理解的路径，用于提供给AI做代码定位。
 
 ## 功能
 
