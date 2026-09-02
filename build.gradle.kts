@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.github.aireference"
-version = "0.5.2"
+version = "0.5.3"
 
 repositories { mavenCentral() }
 
@@ -35,6 +35,11 @@ tasks {
     }
     test { useJUnitPlatform() }
     buildSearchableOptions { enabled = false }
+    named<Jar>("jar") {
+        from(rootProject.file("LICENSE")) {
+            into("META-INF")
+        }
+    }
     named<Zip>("buildPlugin") {
         destinationDirectory.set(layout.buildDirectory)
     }

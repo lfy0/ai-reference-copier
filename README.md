@@ -1,5 +1,7 @@
 # AI Reference Copier
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
 面向 IntelliJ Platform IDE 的轻量插件，用于复制可直接粘贴给 Codex 等 AI 工具的绝对路径和代码行号。
 
 ## 功能
@@ -35,4 +37,8 @@ gradle buildPlugin -PlocalIdePath="D:\\PyCharm 2026.1.4"
 
 ZIP 直接生成在 `build/`，通过 **Settings > Plugins > Install Plugin from Disk** 安装。
 
-发布到 JetBrains Marketplace 前，请按照 [MARKETPLACE.md](MARKETPLACE.md) 补充发布者、许可证和源码地址，并完成发布检查。
+发布到 JetBrains Marketplace 前，请按照 [MARKETPLACE.md](MARKETPLACE.md) 完成发布检查。
+
+## License
+
+Copyright 2026 lfy0. Licensed under the [Apache License 2.0](LICENSE).

@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.github.aireference.copier</id>
     <name>AI Reference Copier</name>
-    <vendor>AI Reference Copier</vendor>
+    <vendor email="453742431@qq.com" url="https://github.com/lfy0/ai-reference-copier">lfy0</vendor>
     <description><![CDATA[
         <h3>Overview</h3>
         <p>Copy AI-friendly references with absolute paths and code line numbers for Codex and other AI tools.</p>
@@ -26,11 +26,12 @@
         <p>默认输出使用绝对路径和 <code>/</code> 分隔符。插件不会读取代码正文、连接网络或调用 AI 服务。</p>
     ]]></description>
     <change-notes><![CDATA[
-        <h3>0.5.2</h3>
+        <h3>0.5.3</h3>
         <ul>
             <li>Positions editor and Project view actions next to the IDE's built-in copy reference actions.</li>
             <li>Adds English and Simplified Chinese action text, descriptions, and usage instructions.</li>
             <li>Supports absolute code, file, and folder references with configurable templates.</li>
+            <li>Adds Marketplace metadata, an original plugin icon, and the Apache License 2.0.</li>
         </ul>
         <p>中文：优化编辑器和项目文件树中的菜单位置，补充中英文操作说明，并支持可配置的绝对路径引用模板。</p>
     ]]></change-notes>
