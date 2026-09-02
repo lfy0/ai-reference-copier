@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-面向 IntelliJ Platform IDE 的轻量插件，用于复制可直接粘贴给 Codex 等 AI 工具的绝对路径和代码行号。
+面向 IntelliJ Platform IDE 的轻量插件，用于IDE与AI工具协作时复制AI可理解的路径，可提供给AI做代码定位。
 
 ## 功能
 
@@ -37,7 +37,6 @@ gradle buildPlugin -PlocalIdePath="<IDE_INSTALLATION_PATH>"
 
 ZIP 直接生成在 `build/`，通过 **Settings > Plugins > Install Plugin from Disk** 安装。
 
-项目维护者可参考 [JetBrains Marketplace 发布指南](MARKETPLACE.md) 构建并发布新版本。
 
 ## License
 
