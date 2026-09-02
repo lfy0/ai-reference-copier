@@ -1,0 +1,57 @@
+<idea-plugin>
+    <id>com.github.aireference.copier</id>
+    <name>AI Reference Copier</name>
+    <vendor>AI Reference Copier</vendor>
+    <description><![CDATA[
+        <h3>Overview</h3>
+        <p>Copy AI-friendly references with absolute paths and code line numbers for Codex and other AI tools.</p>
+        <h4>How to use</h4>
+        <ul>
+            <li><b>Copy a code location:</b> Select code in the editor and choose “Copy AI Code Reference” from the context menu. With no selection, the current cursor line is copied.</li>
+            <li><b>Copy a file or folder:</b> Select one file or folder in the Project view and choose “Copy AI Reference” from the context menu.</li>
+            <li><b>Use shortcuts:</b> Press <code>Ctrl+Alt+Shift+R</code> for a code reference or <code>Ctrl+Alt+Shift+P</code> for a file or folder reference. The shortcuts can be changed in the IDE Keymap.</li>
+            <li><b>Customize the format:</b> Search for “AI Reference Copier” in Settings/Preferences to edit code, file, and folder templates and view their previews.</li>
+        </ul>
+        <p>The default output uses absolute paths with <code>/</code> separators. The plugin does not read source contents, access the network, or call AI services.</p>
+
+        <h3>中文说明</h3>
+        <p>复制带绝对路径和代码行号的 AI 引用，可直接粘贴给 Codex 等 AI 工具。</p>
+        <h4>操作方法</h4>
+        <ul>
+            <li><b>复制代码位置：</b>在编辑器中选中代码，右键选择“复制 AI 代码引用”；未选择代码时复制当前光标所在行。</li>
+            <li><b>复制文件或文件夹：</b>在 Project 文件树中选中一个文件或文件夹，右键选择“复制 AI 引用”。</li>
+            <li><b>使用快捷键：</b>代码引用使用 <code>Ctrl+Alt+Shift+R</code>，文件或文件夹引用使用 <code>Ctrl+Alt+Shift+P</code>；可在 IDE Keymap 中修改。</li>
+            <li><b>自定义格式：</b>在 Settings/Preferences 中搜索“AI Reference Copier”，可分别设置代码、文件和文件夹模板并查看预览。</li>
+        </ul>
+        <p>默认输出使用绝对路径和 <code>/</code> 分隔符。插件不会读取代码正文、连接网络或调用 AI 服务。</p>
+    ]]></description>
+    <change-notes><![CDATA[
+        <h3>0.5.2</h3>
+        <ul>
+            <li>Positions editor and Project view actions next to the IDE's built-in copy reference actions.</li>
+            <li>Adds English and Simplified Chinese action text, descriptions, and usage instructions.</li>
+            <li>Supports absolute code, file, and folder references with configurable templates.</li>
+        </ul>
+        <p>中文：优化编辑器和项目文件树中的菜单位置，补充中英文操作说明，并支持可配置的绝对路径引用模板。</p>
+    ]]></change-notes>
+    <resource-bundle>messages.AiReferenceBundle</resource-bundle>
+    <depends>com.intellij.modules.platform</depends>
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceImplementation="com.github.aireference.settings.ReferenceSettings"/>
+        <applicationConfigurable id="com.github.aireference.settings" displayName="AI Reference Copier"
+                                 instance="com.github.aireference.settings.ReferenceConfigurable"/>
+        <notificationGroup id="AI Reference Copier" displayType="BALLOON"/>
+    </extensions>
+    <actions>
+        <action id="com.github.aireference.CopyEditorReference"
+                class="com.github.aireference.action.CopyEditorReferenceAction">
+            <add-to-group group-id="EditorPopupMenu" anchor="after" relative-to-action="Copy.Paste.Special"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="control alt shift R"/>
+        </action>
+        <action id="com.github.aireference.CopyProjectReference"
+                class="com.github.aireference.action.CopyProjectReferenceAction">
+            <add-to-group group-id="CutCopyPasteGroup" anchor="after" relative-to-action="CopyReferencePopupGroup"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="control alt shift P"/>
+        </action>
+    </actions>
+</idea-plugin>
