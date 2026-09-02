@@ -29,15 +29,15 @@ gradle test
 gradle buildPlugin
 ```
 
-也可以复用本机 IDE：
+如需使用本地安装的 IDE 作为构建目标，可通过 `localIdePath` 指定其安装目录：
 
 ```shell
-gradle buildPlugin -PlocalIdePath="D:\\PyCharm 2026.1.4"
+gradle buildPlugin -PlocalIdePath="<IDE_INSTALLATION_PATH>"
 ```
 
 ZIP 直接生成在 `build/`，通过 **Settings > Plugins > Install Plugin from Disk** 安装。
 
-发布到 JetBrains Marketplace 前，请按照 [MARKETPLACE.md](MARKETPLACE.md) 完成发布检查。
+项目维护者可参考 [JetBrains Marketplace 发布指南](MARKETPLACE.md) 构建并发布新版本。
 
 ## License
 

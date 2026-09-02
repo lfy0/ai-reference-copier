@@ -1,30 +1,54 @@
-# JetBrains Marketplace 发布清单
+# JetBrains Marketplace 发布指南
 
-## 首次上传前必须补充
+本文档供项目维护者发布 AI Reference Copier 使用。
 
-- [x] 发布者为 `lfy0`，联系邮箱为 `453742431@qq.com`，项目地址为 <https://github.com/lfy0/ai-reference-copier>。
-- [x] 使用 Apache License 2.0，并在项目根目录提供完整的 `LICENSE`。
-- [ ] 在 PyCharm、Android Studio 和 DevEco Studio 中安装最终 ZIP，完成一次菜单、快捷键和剪贴板回归测试。
-- [ ] 使用 JetBrains Plugin Verifier 检查准备在 Marketplace 声明支持的 JetBrains IDE 版本。
-- [ ] 如需作者签名，使用环境变量或安全的密钥存储提供证书和私钥，不能提交到源码仓库。
+## 发布前检查
 
-## 首次手动上传
+- 更新 `build.gradle.kts` 中的插件版本号。
+- 更新 `plugin.xml` 中的 `<change-notes>`，确保内容与当前版本一致。
+- 确认英文插件说明位于其他语言说明之前。
+- 确认发布者信息、插件图标和 Apache License 2.0 保持有效。
+- 运行自动化测试和 JetBrains 插件配置校验。
+- 使用 Plugin Verifier 检查计划支持的 JetBrains IDE 版本。
+- 在目标 IDE 中安装最终 ZIP，验证菜单、快捷键和剪贴板功能。
 
-1. 登录 <https://plugins.jetbrains.com/>，在账户菜单选择 **Upload plugin**。
-2. 接受 Marketplace Developer Agreement，创建 Vendor Profile，并声明 Trader 或 Non-trader 状态。
-3. 上传 `build/ai-reference-copier-0.5.3.zip`。
-4. 填写许可证、源码地址、标签和发布渠道。正式版使用默认渠道；预发布版可以使用 `beta`。
-5. 提交审核，并根据 Marketplace 的验证与人工审核反馈进行修改。
+## 构建发布包
 
-## 后续版本自动发布
+项目需要 JDK 17 和 Gradle 8.x：
 
-首次版本必须手动上传。插件条目创建后，在 Marketplace 的 **My Tokens** 页面生成 Personal Access Token，然后执行：
+```shell
+gradle clean test buildPlugin verifyPluginConfiguration
+```
+
+生成的安装包位于：
+
+```text
+build/ai-reference-copier-<version>.zip
+```
+
+## 首次发布
+
+JetBrains Marketplace 要求首次发布通过网页手动完成：
+
+1. 登录 <https://plugins.jetbrains.com/>，在账户菜单中选择 **Upload plugin**。
+2. 接受 Marketplace Developer Agreement，并选择对应的 Vendor Profile。
+3. 上传构建生成的 ZIP 安装包。
+4. 选择 **Apache 2.0** 许可证并填写公开源码仓库地址。
+5. 设置合适的标签和发布渠道，然后提交审核。
+
+正式版本使用默认发布渠道。Alpha、Beta 或 EAP 版本应使用对应的自定义渠道。
+
+## 发布后续版本
+
+插件条目创建后，可在 Marketplace 的 **My Tokens** 页面生成 Personal Access Token，并通过 Gradle 发布更新：
 
 ```powershell
 $env:ORG_GRADLE_PROJECT_intellijPlatformPublishingToken = "YOUR_TOKEN"
 gradle publishPlugin
 ```
 
-每次上传前必须修改 `build.gradle.kts` 中的版本号，并同步更新 `plugin.xml` 的 `<change-notes>`。Token、签名私钥和密码不能写入项目文件。
+Marketplace 不接受相同版本号的重复安装包，因此每次发布前都必须更新版本号。
 
-上传前确认 GitHub 仓库可以在未登录状态下访问，然后在 Marketplace 表单中选择 **Apache 2.0** 并填写该仓库地址。
+## 安全注意事项
+
+Personal Access Token、签名私钥、证书密码及其他凭据只能通过环境变量或安全的密钥存储提供，不得提交到源码仓库。
