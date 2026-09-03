@@ -2,6 +2,7 @@ package com.github.aireference.util
 
 import com.github.aireference.model.Reference
 import com.github.aireference.model.ReferenceType
+import com.github.aireference.settings.ReferenceSettings
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.LocalFileSystem
@@ -11,13 +12,13 @@ import com.intellij.openapi.vfs.VirtualFile
 object ReferenceFactory {
     fun fromEditor(project: Project, file: VirtualFile, document: Document, selectionStart: Int,
                    selectionEnd: Int, hasSelection: Boolean, caretOffset: Int): Reference? {
-        val path = absoluteProjectPath(project, file) ?: return null
+        val path = projectPath(project, file) ?: return null
         val lines = selectedLines(document, selectionStart, selectionEnd, hasSelection, caretOffset)
         return Reference(ReferenceType.CODE, path, lines.first, lines.last)
     }
 
     fun fromVirtualFile(project: Project, file: VirtualFile): Reference? {
-        val path = absoluteProjectPath(project, file) ?: return null
+        val path = projectPath(project, file) ?: return null
         return Reference(if (file.isDirectory) ReferenceType.FOLDER else ReferenceType.FILE, path)
     }
 
@@ -34,9 +35,15 @@ object ReferenceFactory {
         return (document.getLineNumber(start) + 1)..(document.getLineNumber(end) + 1)
     }
 
-    fun absoluteProjectPath(project: Project, file: VirtualFile): String? {
+    private fun projectPath(project: Project, file: VirtualFile): String? {
         val root = project.basePath?.let { LocalFileSystem.getInstance().findFileByPath(it) } ?: return null
+        return projectPath(root, file, ReferenceSettings.getInstance().state.useAbsolutePath)
+    }
+
+    internal fun projectPath(root: VirtualFile, file: VirtualFile, useAbsolutePath: Boolean): String? {
         if (!VfsUtilCore.isAncestor(root, file, false)) return null
-        return file.path.replace('\\', '/')
+        if (useAbsolutePath) return file.path.replace('\\', '/')
+        // 项目根目录使用 "."，使默认文件夹模板生成 "@./"。
+        return VfsUtilCore.getRelativePath(file, root, '/')?.ifEmpty { "." }
     }
 }

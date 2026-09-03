@@ -12,7 +12,8 @@ class ReferenceSettings : PersistentStateComponent<ReferenceSettings.Data> {
     data class Data(
         var codeTemplate: String = DEFAULT_CODE_TEMPLATE,
         var fileTemplate: String = DEFAULT_FILE_TEMPLATE,
-        var folderTemplate: String = DEFAULT_FOLDER_TEMPLATE
+        var folderTemplate: String = DEFAULT_FOLDER_TEMPLATE,
+        var useAbsolutePath: Boolean = false
     )
 
     private var settingsState = Data()

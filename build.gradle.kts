@@ -5,9 +5,14 @@ plugins {
 }
 
 group = "com.github.aireference"
-version = "0.5.3"
+version = "0.6.0"
 
 repositories { mavenCentral() }
+
+val marketplaceZipSigner by configurations.creating {
+    isCanBeConsumed = false
+    isTransitive = false
+}
 
 intellij {
     intellijRepository.set("https://www.jetbrains.com/intellij-repository")
@@ -30,6 +35,10 @@ if (providers.gradleProperty("localIdePath").isPresent) {
 
 tasks {
     patchPluginXml { sinceBuild.set("232") }
+    downloadZipSigner {
+        // 固定使用 Maven Central 的签名工具，避免旧插件通过 GitHub 查询最新版本失败。
+        cliPath.set(provider { marketplaceZipSigner.singleFile.absolutePath })
+    }
     publishPlugin {
         token.set(providers.gradleProperty("intellijPlatformPublishingToken").orElse(""))
     }
@@ -46,6 +55,7 @@ tasks {
 }
 
 dependencies {
+    marketplaceZipSigner("org.jetbrains:marketplace-zip-signer:0.1.43:cli")
     testImplementation(kotlin("test"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
 }
